@@ -14,6 +14,7 @@
             --text-dim: #94a3b8;
             --code-bg: #000000;
             --border-color: #334155;
+            --accent-purple: #a855f7;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
@@ -34,10 +35,7 @@
 
         .sidebar h2 { color: var(--accent-color); font-size: 1.5rem; margin-bottom: 2rem; display: flex; align-items: center; gap: 10px; }
 
-        .nav-item {
-            list-style: none;
-            margin-bottom: 0.5rem;
-        }
+        .nav-item { list-style: none; margin-bottom: 0.5rem; }
 
         .nav-link {
             text-decoration: none;
@@ -66,8 +64,9 @@
 
         h1 { font-size: 2.5rem; margin-bottom: 1rem; color: var(--accent-color); }
         h3 { font-size: 1.5rem; margin: 1.5rem 0 1rem; color: var(--accent-color); border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; }
+        h4 { color: var(--accent-purple); margin-top: 1rem; margin-bottom: 0.5rem; }
         p { line-height: 1.7; color: var(--text-dim); margin-bottom: 1rem; }
-        ul { margin-left: 1.5rem; color: var(--text-dim); line-height: 1.8; }
+        ul { margin-left: 1.5rem; color: var(--text-dim); line-height: 1.8; margin-bottom: 1rem; }
 
         .card {
             background: var(--sidebar-bg);
@@ -117,6 +116,7 @@
         <ul>
             <li class="nav-item"><a href="#intro" class="nav-link active">Introduction</a></li>
             <li class="nav-item"><a href="#logic" class="nav-link">Logic & Basics</a></li>
+            <li class="nav-item"><a href="#advanced" class="nav-link">Advanced Course Tech</a></li>
             <li class="nav-item"><a href="#tools" class="nav-link">Dark Dex & RSpy</a></li>
             <li class="nav-item"><a href="#tween" class="nav-link">Tween Service</a></li>
             <li class="nav-item"><a href="#library" class="nav-link">Fluent Library</a></li>
@@ -142,8 +142,35 @@
             </div>
         </section>
 
+        <section id="advanced">
+            <h3>2. Advanced Technical Breakdown (รุ่น 2)</h3>
+            <p>เจาะลึกเนื้อหาเชิงเทคนิคขั้นสูงสำหรับการควบคุมระบบเกมอย่างสมบูรณ์</p>
+            
+            <div class="card">
+                <h4><i class="fas fa-microchip"></i> Environment & Debug</h4>
+                <p>การจัดการหน่วยความจำและสภาพแวดล้อมของสคริปต์เพื่อให้ได้ข้อมูลเชิงลึก</p>
+                <ul>
+                    <li><strong>getfenv / setfenv:</strong> ดึงและแก้ไขข้อมูล Global ของฟังก์ชัน</li>
+                    <li><strong>getgc (Garbage Collector):</strong> ส่องดู Object ทั้งหมดที่ถูกสร้างขึ้นในแรม</li>
+                    <li><strong>debug.*:</strong> ใช้จัดการ Stack ของโค้ดเพื่อหาจุดโหว่ใน Logic</li>
+                </ul>
+                
+            </div>
+
+            <div class="card">
+                <h4><i class="fas fa-link"></i> Hook & Metamethods</h4>
+                <p>การแทรกแซงพฤติกรรมดั้งเดิมของ Roblox Engine (Metatables)</p>
+                <ul>
+                    <li><strong>__index:</strong> ดักจับการพยายาม "อ่าน" ค่าเพื่อปลอมแปลงข้อมูล</li>
+                    <li><strong>__namecall:</strong> ดักจับการเรียกใช้ฟังก์ชัน เช่น ปลอมแปลงการวาร์ปหรือเป้าหมาย</li>
+                    <li><strong>hookmetamethod:</strong> เทคนิคเปลี่ยนพฤติกรรมฟังก์ชันดั้งเดิมอย่างถาวร</li>
+                </ul>
+                
+            </div>
+        </section>
+
         <section id="tools">
-            <h3>2. Dark Dex & Remote Spy</h3>
+            <h3>3. Dark Dex & Remote Spy</h3>
             <p>เครื่องมือที่ช่วยให้เรา "เห็น" และ "ได้ยิน" สิ่งที่เกมพยายามซ่อนไว้</p>
             <div class="card">
                 <h3><i class="fas fa-search"></i> Dark Dex</h3>
@@ -151,12 +178,12 @@
             </div>
             <div class="card">
                 <h3><i class="fas fa-satellite-dish"></i> Remote Spy</h3>
-                <p>ดักจับคำสั่งที่ส่งไปหาเซิร์ฟเวอร์ เมื่อเราทำกิจกรรมในเกม RSpy จะบอกโค้ดที่ต้องใช้เพื่อให้เรานำมาเขียนรันเองได้</p>
+                <p>ดักจับคำสั่งที่ส่งไปหาเซิร์ฟเวอร์ (FireServer) เพื่อนำมาเขียนรันเองรัวๆ</p>
             </div>
         </section>
 
         <section id="tween">
-            <h3>3. Tween Service (Smoothing)</h3>
+            <h3>4. Tween Service (Smoothing)</h3>
             <p>การทำให้วัตถุเคลื่อนที่หรือเปลี่ยนแปลงค่าต่างๆ อย่างนุ่มนวล (Easing)</p>
             
             <div class="card">
@@ -177,7 +204,7 @@ tween:Play()</code></pre>
         </section>
 
         <section id="library">
-            <h3>4. UI Library (Fluent)</h3>
+            <h3>5. UI Library (Fluent)</h3>
             <p>การใช้ Library สำเร็จรูปเพื่อสร้างหน้าต่าง GUI ที่สวยงามและมีประสิทธิภาพสูงสุด</p>
             <div class="card">
                 <span class="badge">FLUENT SETUP</span>
@@ -206,17 +233,17 @@ Tabs.Main:AddButton({
         </section>
 
         <section id="notion">
-            <h3>5. Ambiguous Web Special Tips</h3>
+            <h3>6. Ambiguous Web Special Tips</h3>
             <p>เทคนิคสำคัญจากเอกสาร Ambiguous Web เพื่อความเสถียรของสคริปต์</p>
             <ul>
-                <li><strong>GetService:</strong> ใช้ <code>game:GetService("Players")</code> แทนการพิมพ์ตรงๆ เพื่อลด Error</li>
-                <li><strong>PivotTo:</strong> การย้ายตัวละครใช้ <code>character:PivotTo(CFrame)</code> จะเสถียรกว่าการเปลี่ยน Position</li>
-                <li><strong>Global Vars:</strong> ใช้ <code>_G.Config</code> เพื่อเก็บค่าที่ต้องการแชร์ระหว่างสคริปต์</li>
+                <li><strong>GetService:</strong> ใช้ <code>game:GetService("Players")</code> เสมอเพื่อป้องกัน Error</li>
+                <li><strong>PivotTo:</strong> ใช้ <code>character:PivotTo(CFrame)</code> แทน Position เพื่อความสมูท</li>
+                <li><strong>Global Vars:</strong> ใช้ <code>_G.Config</code> เพื่อส่งข้อมูลข้ามสคริปต์</li>
             </ul>
         </section>
 
         <section id="example">
-            <h3>6. Final Example (GUI + Logic)</h3>
+            <h3>7. Final Example (GUI + Logic)</h3>
             <p>การนำ UI Fluent มาคุมระบบ Auto Farm</p>
             <pre><code>local Options = Fluent.Options
 local Toggle = Tabs.Main:AddToggle("AutoFarm", {Title = "Auto Farm Monster", Default = false })
@@ -256,7 +283,8 @@ end)</code></pre>
                 if (top >= offset && top < offset + height) {
                     links.forEach(link => {
                         link.classList.remove('active');
-                        document.querySelector('.sidebar ul li a[href*=' + id + ']').classList.add('active');
+                        const target = document.querySelector('.sidebar ul li a[href*=' + id + ']');
+                        if(target) target.classList.add('active');
                     });
                 }
             });
