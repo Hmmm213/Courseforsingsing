@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exploit Dev Wiki | Ambiguous Web Style</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --sidebar-bg: #1e293b;
+            --accent-color: #38bdf8;
+            --text-main: #f1f5f9;
+            --text-dim: #94a3b8;
+            --code-bg: #000000;
+            --border-color: #334155;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+
+        body { background-color: var(--bg-dark); color: var(--text-main); display: flex; min-height: 100vh; }
+
+        /* Sidebar Style */
+        .sidebar {
+            width: 280px;
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--border-color);
+            position: fixed;
+            height: 100vh;
+            padding: 2rem 1rem;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .sidebar h2 { color: var(--accent-color); font-size: 1.5rem; margin-bottom: 2rem; display: flex; align-items: center; gap: 10px; }
+
+        .nav-item {
+            list-style: none;
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-dim);
+            padding: 0.75rem 1rem;
+            display: block;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: var(--accent-color);
+            color: var(--bg-dark);
+            font-weight: bold;
+        }
+
+        /* Content Area */
+        .main-content {
+            margin-left: 280px;
+            padding: 3rem;
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        section { margin-bottom: 4rem; scroll-margin-top: 3rem; }
+
+        h1 { font-size: 2.5rem; margin-bottom: 1rem; color: var(--accent-color); }
+        h3 { font-size: 1.5rem; margin: 1.5rem 0 1rem; color: var(--accent-color); border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; }
+        p { line-height: 1.7; color: var(--text-dim); margin-bottom: 1rem; }
+        ul { margin-left: 1.5rem; color: var(--text-dim); line-height: 1.8; }
+
+        .card {
+            background: var(--sidebar-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Code Block Style */
+        pre {
+            background-color: var(--code-bg);
+            color: #d1d5db;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            position: relative;
+            border-left: 4px solid var(--accent-color);
+            margin: 1rem 0;
+        }
+
+        code { font-family: 'Consolas', monospace; font-size: 0.9rem; }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            background: var(--accent-color);
+            color: var(--bg-dark);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar { width: 100%; height: auto; position: relative; }
+            .main-content { margin-left: 0; padding: 1.5rem; }
+            body { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="sidebar">
+        <h2><i class="fas fa-code-branch"></i> Exploit Wiki</h2>
+        <ul>
+            <li class="nav-item"><a href="#intro" class="nav-link active">Introduction</a></li>
+            <li class="nav-item"><a href="#logic" class="nav-link">Logic & Basics</a></li>
+            <li class="nav-item"><a href="#tools" class="nav-link">Dark Dex & RSpy</a></li>
+            <li class="nav-item"><a href="#tween" class="nav-link">Tween Service</a></li>
+            <li class="nav-item"><a href="#library" class="nav-link">Fluent Library</a></li>
+            <li class="nav-item"><a href="#notion" class="nav-link">Ambiguous Tips</a></li>
+            <li class="nav-item"><a href="#example" class="nav-link">Final Example</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <section id="intro">
+            <h1>Exploit Development</h1>
+            <p>ยินดีต้อนรับสู่คู่มือการเขียนสคริปต์ Roblox สำหรับผู้ที่ต้องการเรียนรู้การเจาะระบบ (Exploiting) ตั้งแต่พื้นฐาน Logic ไปจนถึงการใช้งานเครื่องมือแกะระบบระดับสูง</p>
+        </section>
+
+        <section id="logic">
+            <h3>1. Logic & Lua Fundamentals</h3>
+            <p>Logic คือกระบวนการคิดก่อนเขียนสคริปต์ ในโลกของ Roblox ทุกอย่างคือ <strong>Instance</strong> ที่มีโครงสร้างแบบลำดับชั้น (Hierarchy)</p>
+            <div class="card">
+                <span class="badge">KEY LOGIC</span>
+                <p>• <strong>Pathing:</strong> การระบุที่อยู่ของวัตถุ เช่น <code>game.Workspace.Enemies</code></p>
+                <p>• <strong>Loops:</strong> การใช้ <code>while task.wait() do</code> เพื่อทำซ้ำ เช่น Auto Farm</p>
+                <p>• <strong>Conditions:</strong> การเช็คเงื่อนไข <code>if ... then</code> เช่น เช็คเลือดมอนสเตอร์ก่อนตี</p>
+            </div>
+        </section>
+
+        <section id="tools">
+            <h3>2. Dark Dex & Remote Spy</h3>
+            <p>เครื่องมือที่ช่วยให้เรา "เห็น" และ "ได้ยิน" สิ่งที่เกมพยายามซ่อนไว้</p>
+            <div class="card">
+                <h3><i class="fas fa-search"></i> Dark Dex</h3>
+                <p>ใช้สำหรับส่องโครงสร้างของเกม หาตำแหน่งมอนสเตอร์ หรือดูชื่อ RemoteEvent ใน ReplicatedStorage</p>
+            </div>
+            <div class="card">
+                <h3><i class="fas fa-satellite-dish"></i> Remote Spy</h3>
+                <p>ดักจับคำสั่งที่ส่งไปหาเซิร์ฟเวอร์ เมื่อเราทำกิจกรรมในเกม RSpy จะบอกโค้ดที่ต้องใช้เพื่อให้เรานำมาเขียนรันเองได้</p>
+            </div>
+        </section>
+
+        <section id="tween">
+            <h3>3. Tween Service (Smoothing)</h3>
+            <p>การทำให้วัตถุเคลื่อนที่หรือเปลี่ยนแปลงค่าต่างๆ อย่างนุ่มนวล (Easing)</p>
+            
+            <div class="card">
+                <span class="badge">EXAMPLE: TWEEN POSITION</span>
+                <pre><code>local TS = game:GetService("TweenService")
+local char = game.Players.LocalPlayer.Character
+local target = Vector3.new(100, 20, 100)
+
+local info = TweenInfo.new(
+    2, -- เวลา (วินาที)
+    Enum.EasingStyle.Linear, 
+    Enum.EasingDirection.Out
+)
+
+local tween = TS:Create(char.HumanoidRootPart, info, {CFrame = CFrame.new(target)})
+tween:Play()</code></pre>
+            </div>
+        </section>
+
+        <section id="library">
+            <h3>4. UI Library (Fluent)</h3>
+            <p>การใช้ Library สำเร็จรูปเพื่อสร้างหน้าต่าง GUI ที่สวยงามและมีประสิทธิภาพสูงสุด</p>
+            <div class="card">
+                <span class="badge">FLUENT SETUP</span>
+                <pre><code>local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
+local Window = Fluent:CreateWindow({
+    Title = "Fluent " .. Fluent.Version,
+    SubTitle = "by dawid",
+    TabWidth = 160,
+    Size = UDim2.fromOffset(580, 460),
+    Theme = "Dark"
+})
+
+local Tabs = {
+    Main = Window:AddTab({ Title = "Main", Icon = "home" }),
+    Settings = Window:AddTab({ Title = "Settings", Icon = "settings" })
+}
+
+-- เพิ่มปุ่มตัวอย่าง
+Tabs.Main:AddButton({
+    Title = "Click Me",
+    Callback = function()
+        print("Button Clicked!")
+    end
+})</code></pre>
+            </div>
+        </section>
+
+        <section id="notion">
+            <h3>5. Ambiguous Web Special Tips</h3>
+            <p>เทคนิคสำคัญจากเอกสาร Ambiguous Web เพื่อความเสถียรของสคริปต์</p>
+            <ul>
+                <li><strong>GetService:</strong> ใช้ <code>game:GetService("Players")</code> แทนการพิมพ์ตรงๆ เพื่อลด Error</li>
+                <li><strong>PivotTo:</strong> การย้ายตัวละครใช้ <code>character:PivotTo(CFrame)</code> จะเสถียรกว่าการเปลี่ยน Position</li>
+                <li><strong>Global Vars:</strong> ใช้ <code>_G.Config</code> เพื่อเก็บค่าที่ต้องการแชร์ระหว่างสคริปต์</li>
+            </ul>
+        </section>
+
+        <section id="example">
+            <h3>6. Final Example (GUI + Logic)</h3>
+            <p>การนำ UI Fluent มาคุมระบบ Auto Farm</p>
+            <pre><code>local Options = Fluent.Options
+local Toggle = Tabs.Main:AddToggle("AutoFarm", {Title = "Auto Farm Monster", Default = false })
+
+Toggle:OnChanged(function()
+    _G.Farm = Options.AutoFarm.Value
+end)
+
+task.spawn(function()
+    while task.wait() do
+        if _G.Farm then
+            pcall(function()
+                local Enemy = workspace.Enemies:FindFirstChild("Mob")
+                if Enemy then
+                    game.Players.LocalPlayer.Character:PivotTo(Enemy.HumanoidRootPart.CFrame)
+                    game:GetService("ReplicatedStorage").Events.Attack:FireServer()
+                end
+            end)
+        end
+    end
+end)</code></pre>
+        </section>
+    </main>
+
+    <script>
+        // Enhanced navigation script
+        const links = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('section');
+
+        window.onscroll = () => {
+            sections.forEach(sec => {
+                let top = window.scrollY;
+                let offset = sec.offsetTop - 150;
+                let height = sec.offsetHeight;
+                let id = sec.getAttribute('id');
+
+                if (top >= offset && top < offset + height) {
+                    links.forEach(link => {
+                        link.classList.remove('active');
+                        document.querySelector('.sidebar ul li a[href*=' + id + ']').classList.add('active');
+                    });
+                }
+            });
+        };
+    </script>
+</body>
+</html>
